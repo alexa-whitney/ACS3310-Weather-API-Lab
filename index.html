@@ -72,7 +72,9 @@
               const zip = zipInput.value;
 
               // Handle the promise returned from getWeather
-              getWeather(apiKey, zip).then(onSuccess).catch(onError);
+              getWeather(apiKey, zip, 'imperial')
+                .then(onSuccess)
+                .catch(onError);
             });
     </script>
   </body>
