@@ -8,15 +8,17 @@
   <body>
     <div class="container">
       <h1 id="temp"></h1>
+      <img id="icon" />
       <h2 id="cityName"></h2>
       <p id="desc"></p>
-      <p id="humidity"></p>
-      <p id="temp_max"></p>
-      <p id="temp_min"></p>
-      <img id="icon" />
+      <div class="details">
+        <p><span id="humidity"></span></p>
+        <p><span id="temp_max"></span></p>
+        <p><span id="temp_min"></span></p>
+      </div>
 
       <!-- Zip Form -->
-      <form id="zipForm">
+      <form id="zipForm" class="form">
         <input
           id="zip"
           type="number"
@@ -24,17 +26,19 @@
           title="Please Enter a valid Zip Code"
           pattern="^\d{5}(?:[-\s]\d{4})?$"
         />
-        <button type="submit">Search by Zip</button>
+        <button type="submit">Zip</button>
       </form>
 
       <!-- City Form -->
-      <form id="cityForm">
+      <form id="cityForm" class="form">
         <input id="city" type="text" placeholder="city name" />
-        <button type="submit">Search by City</button>
+        <button type="submit">City</button>
       </form>
 
       <!-- Geo button -->
-      <button id="geoBtn">Get Weather by Location</button>
+      <div class="btn-container">
+        <button id="geoBtn">Get Weather by Location</button>
+      </div>
     </div>
 
     <script src="weather.js"></script>
@@ -49,7 +53,7 @@
       const zipForm = document.getElementById("zipForm");
       const cityForm = document.getElementById("cityForm");
       const geoBtn = document.getElementById("geoBtn");
-      const cityEl = document.getElementById("cityName");
+      const cityNameEl = document.getElementById("cityName");
 
       // OpenWeatherMap API key
       const apiKey = "467355df4c808dd6134a3b64e9ace282";
@@ -58,11 +62,21 @@
       function onSuccess(data) {
         tempEl.innerHTML = data.temperature;
         descEl.innerHTML = data.description;
-        humidEl.innerHTML = data.humidity;
-        tempMaxEl.innerHTML = data.temp_max;
-        tempMinEl.innerHTML = data.temp_min;
-        iconEl.src = `https://openweathermap.org/img/w/${data.icon}.png`;
+        humidEl.innerHTML = "Humidity: " + data.humidity + "%";
+        tempMaxEl.innerHTML = "High Temp: " + data.temp_max + "°";
+        tempMinEl.innerHTML = "Low Temp: " + data.temp_min + "°";
         cityNameEl.innerHTML = data.city;
+        if (data.icon) {
+          iconEl.src = `https://openweathermap.org/img/w/${data.icon}.png`;
+          iconEl.style.display = "block"; // Add this line
+        } else {
+          iconEl.style.display = "none";
+        }
+
+        // Display the humidity, high temp, and low temp once populated
+        document.getElementById("humidity").style.visibility = "visible";
+        document.getElementById("temp_max").style.visibility = "visible";
+        document.getElementById("temp_min").style.visibility = "visible";
       }
 
       function onError(error) {
