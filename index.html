@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Ms Merriweather</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="container">
@@ -13,13 +13,13 @@
         <!-- description -->
       </p>
       <form id="form">
-        <input 
-          id="zip" 
-          type="number" 
+        <input
+          id="zip"
+          type="number"
           placeholder="zip code"
           title="Please Enter a valid Zip Code"
           pattern="^\d{5}(?:[-\s]\d{4})?$"
-        >
+        />
         <button type="submit">Search</button>
       </form>
     </div>
@@ -29,26 +29,34 @@
       // Developer Code
 
       // Get Element refererences
-      const tempEl = document.getElementById('temp')
-      const descEl = document.getElementById('desc')
-      const formEl = document.getElementById('form')
-      const zipInput = document.getElementById('zip')
-
-      // The callback function for the getWeather function
-      function handleWeatherData(data) {
-        tempEl.innerHTML = data.main.temp;
-        descEl.innerHTML = data.weather[0].description;
-    }
+      const tempEl = document.getElementById("temp");
+      const descEl = document.getElementById("desc");
+      const formEl = document.getElementById("form");
+      const zipInput = document.getElementById("zip");
 
       // OpenWeatherMap API key
-      const apiKey = '467355df4c808dd6134a3b64e9ace282';
+      const apiKey = "467355df4c808dd6134a3b64e9ace282";
+
+      // Define the onSuccess and onError functions
+      function onSuccess(data) {
+        tempEl.innerHTML = data.main.temp;
+        descEl.innerHTML = data.weather[0].description;
+      }
+
+      function onError(error) {
+        console.log("Error:", error);
+      }
 
       // Define event listeners
-      formEl.addEventListener('submit', (e) => {
-        e.preventDefault()
-        const zip = zipInput.value
-        getWeather(apiKey, zip, handleWeatherData)
-      })
+      formEl.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const zip = zipInput.value;
+
+        // Handle the promise returned from getWeather
+        getWeather(apiKey, zip)
+          .then(onSuccess)
+          .catch(onError);
+      });
     </script>
   </body>
 </html>
