@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ms Merriweather</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1 id="temp">
+        <!--Temp -->
+      </h1>
+      <p id="desc">
+        <!-- description -->
+      </p>
+      <form id="form">
+        <input 
+          id="zip" 
+          type="number" 
+          placeholder="zip code"
+          title="Please Enter a valid Zip Code"
+          pattern="^\d{5}(?:[-\s]\d{4})?$"
+        >
+        <button type="submit">Search</button>
+      </form>
+    </div>
+    <script src="weather.js"></script>
+    <script>
+      // ------------------------------------------------------
+      // Developer Code
+
+      // Get Element refererences
+      const tempEl = document.getElementById('temp')
+      const descEl = document.getElementById('desc')
+      const formEl = document.getElementById('form')
+      const zipInput = document.getElementById('zip')
+
+      // OpenWeatherMap API key
+      const apiKey = '467355df4c808dd6134a3b64e9ace282';
+
+      // Define event listeners
+      formEl.addEventListener('submit', (e) => {
+        e.preventDefault()
+        const zip = zipInput.value
+        getWeather(apiKey, zip)
+      })
+    </script>
+  </body>
+</html>
