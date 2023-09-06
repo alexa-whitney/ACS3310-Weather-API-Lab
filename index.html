@@ -12,6 +12,17 @@
       <p id="desc">
         <!-- description -->
       </p>
+      <p id="humidity">
+        <!-- humidity -->
+      </p>
+      <p id="temp_max">
+        <!-- description -->
+      </p>
+      <p id="temp_min">
+        <!-- description -->
+      </p>
+      <img id="icon" />
+      <!-- icon -->
       <form id="form">
         <input
           id="zip"
@@ -25,38 +36,44 @@
     </div>
     <script src="weather.js"></script>
     <script>
-      // ------------------------------------------------------
-      // Developer Code
+            // ------------------------------------------------------
+            // Developer Code
 
-      // Get Element refererences
-      const tempEl = document.getElementById("temp");
-      const descEl = document.getElementById("desc");
-      const formEl = document.getElementById("form");
-      const zipInput = document.getElementById("zip");
+            // Get Element refererences
+            const tempEl = document.getElementById("temp");
+            const descEl = document.getElementById("desc");
+            const formEl = document.getElementById("form");
+            const zipInput = document.getElementById("zip");
+            const humidEl = document.getElementById("humidity");
+            const tempMaxEl = document.getElementById("temp_max");
+            const tempMinEl = document.getElementById("temp_min");
+            const iconEl = document.getElementById("icon");
 
-      // OpenWeatherMap API key
-      const apiKey = "467355df4c808dd6134a3b64e9ace282";
+            // OpenWeatherMap API key
+            const apiKey = "467355df4c808dd6134a3b64e9ace282";
 
-      // Define the onSuccess and onError functions
-      function onSuccess(data) {
-        tempEl.innerHTML = data.main.temp;
-        descEl.innerHTML = data.weather[0].description;
-      }
+            // Define the onSuccess and onError functions
+            function onSuccess(data) {
+              tempEl.innerHTML = data.temperature;
+              descEl.innerHTML = data.description;
+              humidEl.innerHTML = data.humidity;
+              tempMaxEl.innerHTML = data.temp_max;
+              tempMinEl.innerHTML = data.temp_min;
+              iconEl.src = `https://openweathermap.org/img/w/${data.icon}.png`;
+            }
 
-      function onError(error) {
-        console.log("Error:", error);
-      }
+            function onError(error) {
+              console.log("Error:", error);
+            }
 
-      // Define event listeners
-      formEl.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const zip = zipInput.value;
+            // Define event listeners
+            formEl.addEventListener("submit", (e) => {
+              e.preventDefault();
+              const zip = zipInput.value;
 
-        // Handle the promise returned from getWeather
-        getWeather(apiKey, zip)
-          .then(onSuccess)
-          .catch(onError);
-      });
+              // Handle the promise returned from getWeather
+              getWeather(apiKey, zip).then(onSuccess).catch(onError);
+            });
     </script>
   </body>
 </html>
