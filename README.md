@@ -1,3 +1,3 @@
 # weather-api lab 
 
-![App Screenshot](https://imgur.com/DwZBOEG)
+![App Screenshot](https://imgur.com/DwZBOEG.png)
