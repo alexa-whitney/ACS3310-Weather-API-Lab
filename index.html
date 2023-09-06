@@ -34,6 +34,12 @@
       const formEl = document.getElementById('form')
       const zipInput = document.getElementById('zip')
 
+      // The callback function for the getWeather function
+      function handleWeatherData(data) {
+        tempEl.innerHTML = data.main.temp;
+        descEl.innerHTML = data.weather[0].description;
+    }
+
       // OpenWeatherMap API key
       const apiKey = '467355df4c808dd6134a3b64e9ace282';
 
@@ -41,7 +47,7 @@
       formEl.addEventListener('submit', (e) => {
         e.preventDefault()
         const zip = zipInput.value
-        getWeather(apiKey, zip)
+        getWeather(apiKey, zip, handleWeatherData)
       })
     </script>
   </body>
